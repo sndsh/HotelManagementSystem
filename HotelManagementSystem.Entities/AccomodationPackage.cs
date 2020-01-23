@@ -21,6 +21,6 @@ namespace HotelManagementSystem.Entities
         public int NoOfRooms { get; set; }
         public decimal FeePerNight { get; set; }
 
-
+        public virtual List<AccomodationPackagePicture> AccomodationPackagePictures { get; set; }
     }
 }

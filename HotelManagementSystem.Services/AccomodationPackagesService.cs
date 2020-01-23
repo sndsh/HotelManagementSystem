@@ -17,6 +17,13 @@ namespace HotelManagementSystem.Services
             return context.AccomodationPackages.AsEnumerable();
         }
 
+        public IEnumerable<AccomodationPackage> GetAllAccomodationPackagesByAccomodationType(int accomodationTypeID)
+        {
+            var context = new HMSDBContext();
+
+            return context.AccomodationPackages.Where(x=>x.AccomodationTypeID==accomodationTypeID).ToList();
+        }
+
         public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchTerm ,int? accomodationTypeID, int page, int recordSize)
         {
             var context = new HMSDBContext();
@@ -63,10 +70,13 @@ namespace HotelManagementSystem.Services
 
         public AccomodationPackage GetAccomodationPackageByID(int ID)
         {
-            using(var context = new HMSDBContext())
-            {
-                return context.AccomodationPackages.Find(ID);
-            }    
+            var context = new HMSDBContext();
+            return context.AccomodationPackages.Find(ID);
+
+            //using(var context = new HMSDBContext())
+            //{
+            //    return context.AccomodationPackages.Find(ID);
+            //}    
         }
 
         public bool SaveAccomodationPackage(AccomodationPackage accomodationPackage)
@@ -80,8 +90,12 @@ namespace HotelManagementSystem.Services
         public bool UpdateAccomodationPackage(AccomodationPackage accomodationPackage)
         {
             var context = new HMSDBContext();
+            var existingAccomodationPackage = context.AccomodationPackages.Find(accomodationPackage.ID);
 
-            context.Entry(accomodationPackage).State = System.Data.Entity.EntityState.Modified;
+            context.AccomodationPackagePictures.RemoveRange(existingAccomodationPackage.AccomodationPackagePictures);
+            context.Entry(existingAccomodationPackage).CurrentValues.SetValues(accomodationPackage);
+            context.AccomodationPackagePictures.AddRange(accomodationPackage.AccomodationPackagePictures);
+          //  context.Entry(accomodationPackage).State = System.Data.Entity.EntityState.Modified;
 
             return context.SaveChanges() > 0;
         }
@@ -93,6 +107,13 @@ namespace HotelManagementSystem.Services
             context.Entry(accomodationPackage).State = System.Data.Entity.EntityState.Deleted;
 
             return context.SaveChanges() > 0;
+        }
+
+        public List<AccomodationPackagePicture> GetPicturesByAccomodationPackageID(int accomodationPackageID)
+        {
+            var context = new HMSDBContext();
+
+            return context.AccomodationPackages.Find(accomodationPackageID).AccomodationPackagePictures.ToList();
         }
     }
 }

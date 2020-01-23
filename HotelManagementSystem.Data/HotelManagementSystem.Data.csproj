@@ -64,6 +64,14 @@
     <Compile Include="Migrations\202001120720425_identityframeworkrefrence.Designer.cs">
       <DependentUpon>202001120720425_identityframeworkrefrence.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001190253335_addedUserProperties.cs" />
+    <Compile Include="Migrations\202001190253335_addedUserProperties.Designer.cs">
+      <DependentUpon>202001190253335_addedUserProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001211002075_addedPictureEntities.cs" />
+    <Compile Include="Migrations\202001211002075_addedPictureEntities.Designer.cs">
+      <DependentUpon>202001211002075_addedPictureEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +91,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001120720425_identityframeworkrefrence.resx">
       <DependentUpon>202001120720425_identityframeworkrefrence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001190253335_addedUserProperties.resx">
+      <DependentUpon>202001190253335_addedUserProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211002075_addedPictureEntities.resx">
+      <DependentUpon>202001211002075_addedPictureEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

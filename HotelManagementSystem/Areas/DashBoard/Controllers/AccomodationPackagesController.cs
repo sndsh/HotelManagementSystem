@@ -14,6 +14,7 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
     {
         AccomodationPackagesService accomodationPackagesService = new AccomodationPackagesService();
         AccomodationTypesService accomodationTypesService = new AccomodationTypesService();
+        DashboardService dashboardService = new DashboardService();
         public ActionResult Index(string searchTerm, int? accomodationTypeID, int? page)
         {
             int recordSize = 3;
@@ -47,6 +48,8 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
                 model.Name = accomodationPackage.Name;
                 model.NoOfRooms = accomodationPackage.NoOfRooms;
                 model.FeePerNight = accomodationPackage.FeePerNight;
+
+                model.AccomodationPackagePictures = accomodationPackagesService.GetPicturesByAccomodationPackageID(accomodationPackage.ID);
             }
             model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes().ToList();
           
@@ -59,6 +62,10 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
 
             var result = false;
 
+            // model.PictureIDs = "90,67,65" so need to split and make list =["90","67","65"]={90,67,65}
+            List<int> pictureIDs = !string.IsNullOrEmpty(model.PictureIDs)? model.PictureIDs.Split(',').Select(x => int.Parse(x)).ToList() : new List<int>();
+            var pictures = dashboardService.GetPicturesByIDs(pictureIDs);
+
             if (model.ID > 0)  //we are trying to edit a record
             {
                 var accomodationPackage = accomodationPackagesService.GetAccomodationPackageByID(model.ID);
@@ -67,6 +74,9 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
                 accomodationPackage.Name = model.Name;
                 accomodationPackage.NoOfRooms = model.NoOfRooms;
                 accomodationPackage.FeePerNight = model.FeePerNight;
+
+                accomodationPackage.AccomodationPackagePictures.Clear();
+                accomodationPackage.AccomodationPackagePictures.AddRange(pictures.Select(x => new AccomodationPackagePicture() { AccomodationPackageID = accomodationPackage.ID, PictureID = x.ID }));
 
                 result = accomodationPackagesService.UpdateAccomodationPackage(accomodationPackage);
             }
@@ -78,6 +88,11 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
                 accomodationPackage.Name = model.Name;
                 accomodationPackage.NoOfRooms = model.NoOfRooms;
                 accomodationPackage.FeePerNight = model.FeePerNight;
+
+                
+
+                accomodationPackage.AccomodationPackagePictures = new List<AccomodationPackagePicture>();
+                accomodationPackage.AccomodationPackagePictures.AddRange(pictures.Select(x => new AccomodationPackagePicture() { PictureID = x.ID }));
 
                 result = accomodationPackagesService.SaveAccomodationPackage(accomodationPackage);
             }
@@ -127,7 +142,7 @@ namespace HotelManagementSystem.Areas.DashBoard.Controllers
             }
             else
             {
-                json.Data = new { Success = false, Message = "Unable to perform action on Accomodation Type." };
+                json.Data = new { Success = false, Message = "Unable to perform action on Accomodation Package." };
             }
 
             return json;

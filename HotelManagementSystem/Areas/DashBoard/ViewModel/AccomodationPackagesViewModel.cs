@@ -24,11 +24,15 @@ namespace HotelManagementSystem.Areas.DashBoard.ViewModel
         public int AccomodationTypeID { get; set; }
         public AccomodationType AccomodationType { get; set; }
 
+        public string PictureIDs { get; set; }
+
         public string Name { get; set; }
         public int NoOfRooms { get; set; }
         public decimal FeePerNight { get; set; }
 
         public List<AccomodationType> AccomodationTypes { get; set; }
+
+        public virtual List<AccomodationPackagePicture> AccomodationPackagePictures { get; set; }
 
     }
 }

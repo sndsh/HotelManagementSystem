@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HotelManagementSystem.Services;
+using HotelManagementSystem.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,21 +12,18 @@ namespace HotelManagementSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+
+            AccomodationTypesService service = new AccomodationTypesService();
+            AccomodationPackagesService accomodationPackageservice = new AccomodationPackagesService();
+
+
+            model.AccomodationTypes = service.GetAllAccomodationTypes();
+            model.AccomodationPackages = accomodationPackageservice.GetAllAccomodationPackages();
+
+            return View(model);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+      
     }
 }
