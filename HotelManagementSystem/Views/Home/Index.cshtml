@@ -170,6 +170,7 @@
 </div>
 @if (Model.AccomodationTypes != null && Model.AccomodationTypes.Count() > 0)
 {
+    var i = 0;
     <div id="colorlib-rooms" class="colorlib-light-grey">
         <div class="container">
             <div class="row">
@@ -180,9 +181,10 @@
                     <p>
                         @foreach (var accomodationType in Model.AccomodationTypes)
                         {
-                        <button class="btn btn-sm" data-id="@accomodationType.ID">
-                            <a href="@Url.Action("Index","Accomodations",new {area="",accomodationTypeID=accomodationType.ID})">   @accomodationType.Name
-                            </a>
+                        <button class="btn btn-sm changeAccomodationType" data-id="@accomodationType.ID">
+                           @*<a href="@Url.Action("Index","Accomodations",new {area="",accomodationTypeID=accomodationType.ID})"></a>*@ 
+                            @accomodationType.Name
+
                         </button>
                         }
                     </p>
@@ -190,17 +192,22 @@
             </div>
             @foreach (var accomodationType in Model.AccomodationTypes)
             {
-                <div class="row">
+                <div class="row accomodationTypesRow" data-id="@accomodationType.ID" style="@( i!=0 ? "display:none":string.Empty)">
                     <div class="col-md-12 animate-box">
                         <div class="owl-carousel owl-carousel2">
 
                             @foreach (var accomodationPackage in Model.AccomodationPackages.Where(x=>x.AccomodationTypeID==accomodationType.ID))
                             {
+
+                                var thumbnailPicture = accomodationPackage.AccomodationPackagePictures != null && accomodationPackage.AccomodationPackagePictures.Count > 0 ? accomodationPackage.AccomodationPackagePictures.First() : new HotelManagementSystem.Entities.AccomodationPackagePicture();
+
+                                var thumbnailURL = thumbnailPicture.Picture != null ? thumbnailPicture.Picture.URL : "default-image.jpg";
+
                                 <div class="item">
-                                    <a href="/images/room-1.jpg" class="room image-popup-link" style="background-image: url(/images/room-1.jpg);"></a>
+                                    <a href="@Url.Action("Details","Accomodations",new {area="",accomodationPackageID=accomodationPackage.ID })" class="room" style="background-image: url(/images/site/@thumbnailURL);"></a>
                                     <div class="desc text-center">
                                         <h3>
-                                            <a href="@Url.Action("Index","Accomodations",new {area="",accomodationTypeID=accomodationType.ID })">
+                                            <a href="@Url.Action("Details","Accomodations",new {area="",accomodationPackageID=accomodationPackage.ID })">
                                                 @accomodationPackage.Name
                                             </a>
                                         </h3>
@@ -217,6 +224,7 @@
                         <a href="#">View all rooms <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
+                i++;
             }
         </div>
     </div>

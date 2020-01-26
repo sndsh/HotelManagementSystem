@@ -8,7 +8,7 @@ namespace HotelManagementSystem.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<AccomodationType> AccomodationTypes { get; set; }
-        public IEnumerable<AccomodationPackage> AccomodationPackages { get; set; }
+        public IList<AccomodationType> AccomodationTypes { get; set; }
+        public IList<AccomodationPackage> AccomodationPackages { get; set; }
     }
 }

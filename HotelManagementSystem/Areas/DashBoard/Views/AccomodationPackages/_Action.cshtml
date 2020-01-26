@@ -86,10 +86,10 @@
         var pictureIDs = [];
         $("#picturesArea img").each(function () {
             var picID = $(this).attr("data-id");
-            pictureIDs.push(picID);
+            pictureIDs.push(picID);           
         });
 
-        $("#pictureIDs").val(pictureIDs.join());
+        $("#pictureIDs").val(pictureIDs.join());    //
 
 
          $.ajax({

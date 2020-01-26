@@ -104,7 +104,10 @@ namespace HotelManagementSystem.Services
         {
             var context = new HMSDBContext();
 
-            context.Entry(accomodationPackage).State = System.Data.Entity.EntityState.Deleted;
+            var existingAccomodationPackage = context.AccomodationPackages.Find(accomodationPackage.ID);
+            context.AccomodationPackagePictures.RemoveRange(existingAccomodationPackage.AccomodationPackagePictures);
+
+            context.Entry(existingAccomodationPackage).State = System.Data.Entity.EntityState.Deleted;
 
             return context.SaveChanges() > 0;
         }

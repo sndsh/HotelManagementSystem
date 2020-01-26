@@ -303,6 +303,7 @@
     <Content Include="images\room-4.jpg" />
     <Content Include="images\room-5.jpg" />
     <Content Include="images\room-6.jpg" />
+    <Content Include="images\site\default-image.jpg" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\google_map.js" />
@@ -316,6 +317,7 @@
     <Content Include="Scripts\modernizr-2.6.2.min.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -352,7 +354,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\DashBoard\Models\" />
-    <Folder Include="images\site\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\.DS_Store" />
@@ -452,6 +453,7 @@
     <Content Include="fonts\icomoon\icomoon.woff" />
     <None Include="packages.config" />
     <Content Include="Views\Accomodations\Index.cshtml" />
+    <Content Include="Views\Accomodations\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HotelManagementSystem.Data\HotelManagementSystem.Data.csproj">

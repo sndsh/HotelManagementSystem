@@ -18,8 +18,8 @@ namespace HotelManagementSystem.Controllers
             AccomodationPackagesService accomodationPackageservice = new AccomodationPackagesService();
 
 
-            model.AccomodationTypes = service.GetAllAccomodationTypes();
-            model.AccomodationPackages = accomodationPackageservice.GetAllAccomodationPackages();
+            model.AccomodationTypes = service.GetAllAccomodationTypes().ToList();
+            model.AccomodationPackages = accomodationPackageservice.GetAllAccomodationPackages().ToList();
 
             return View(model);
         }

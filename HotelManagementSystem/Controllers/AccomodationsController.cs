@@ -28,5 +28,21 @@ namespace HotelManagementSystem.Controllers
 
             return View(model);
         }
+
+        public ActionResult Details(int accomodationPackageID)
+        {
+            AccmodationPackageDetailsViewModel model = new AccmodationPackageDetailsViewModel();
+
+            model.AccomodationPackage = accomodationPackagesService.GetAccomodationPackageByID(accomodationPackageID);
+
+
+            return View(model);
+        }
+
+        public ActionResult CheckAvailability(CheckAccomodationAvailabilityViewModel model)
+        {
+         
+            return View();
+        }
     }
 }
